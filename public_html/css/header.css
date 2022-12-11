@@ -1,0 +1,85 @@
+.header {
+    margin-bottom: 4rem;
+}
+
+.header .content {
+    padding: 0.1rem 1rem;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--actv-bg-0);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: all .3s ease;
+    box-shadow: 0 1px 25px rgba(0, 0, 0, .1);
+}
+
+.header.head-hidden {
+    margin-bottom: 0;
+}
+
+.header.head-hidden .content {
+    top: -4rem;
+}
+
+.header-right {
+    display: flex;
+    /* display: flex; */
+}
+
+.logo {
+    height: 100%;
+    max-height: 25vw;
+}
+
+.site-name {
+    height: 100%;
+}
+
+.logo img,
+.site-name img {
+    height: 100%;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    vertical-align: center;
+}
+
+.search>div {
+    display: flex;
+}
+
+.settings-link {
+    margin: auto 0 auto 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('/assets/icons/gear.png');
+    background-size: cover;
+}
+
+@media (max-width:500px) {
+    .header {
+        padding: 0.5rem 0.2rem;
+    }
+}
+
+@media (max-width:800px) {
+    .site-name {
+        display: none;
+    }
+}
+
+/* Dark mode */
+
+body.dark-mode .site-name,
+body.dark-mode .settings-link {
+    filter: invert() brightness(90%);
+}
+
+body.dark-mode .logo img {
+    filter: brightness(90%);
+}

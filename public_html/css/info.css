@@ -1,0 +1,251 @@
+.main {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: solid 0px;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.3rem 0.5rem 0.1rem var(--shdw-0);
+    clear: both;
+    background-color: var(--actv-bg-0);
+}
+
+#img-placeholder {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#img-placeholder img {
+    height: 90%;
+    max-width: 100%;
+    max-height: 500px;
+    margin: 0 auto;
+}
+
+.info {
+    font-size: 1.2rem;
+    color: var(--text-color)
+}
+
+.names {
+    word-wrap: break-word;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+}
+
+.names div {
+    margin: 0.2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#name-ukr {
+    font-size: 2.5rem;
+    line-height: 95%;
+    font-weight: 600;
+    color: var(--invt-0);
+}
+
+#names-other {
+    color: var(--neut-3);
+    margin-top: 0.6rem;
+    display: flex;
+    line-height: 100%;
+    font-weight: 400;
+}
+
+#about {
+    margin-top: 0.9rem;
+}
+
+.tags {
+    margin: 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.tag {
+    max-height: 1.9rem;
+    display: inline;
+    font-size: 1rem;
+    border: solid 0px #fff;
+    border-radius: 3rem;
+    transition: 0.5s 0.1s;
+}
+
+.tag:hover {
+    max-height: 2.1rem;
+    font-size: 1.1rem;
+    border: solid 1px var(--main-0);
+    box-shadow: 0 0 0.5rem 0.1rem rgb(135, 223, 255);
+    cursor: default;
+    user-select: none;
+}
+
+.tag div {
+    display: inline-block;
+    height: 100%;
+    padding: 0.1em 0.2em 0.2em 0.9em;
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+}
+
+.tag .count {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0.1em 0.7em 0.2em 0.3em;
+}
+
+.tag-white {
+    background-color: var(--tag-white);
+}
+
+.tag-green {
+    background-color: var(--tag-green);
+}
+
+.tag-yellow {
+    background-color: var(--tag-yellow);
+}
+
+.tag-red {
+    background-color: var(--tag-red);
+}
+
+.tag-black {
+    background-color: var(--tag-black);
+}
+
+.info-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+.info-button {
+    height: 100%;
+    padding: 0.1em 1.5em 0.3em 1.5em;
+    border-radius: 3rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    font-weight: 100;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+
+}
+
+.info-button-read {
+    color: #fff;
+    background-color: var(--read-bg);
+    border: 1px solid var(--read-br);
+    box-shadow: 2px 2px 5px var(--read-sh);
+}
+
+.info-button-read:hover {
+    background-color: var(--read-hv-bg);
+    border: 1px solid var(--read-hv-br);
+    box-shadow: 2px 2px 20px var(--read-hv-sh);
+}
+
+.info-button-content {
+    margin: auto;
+}
+
+.info-button-content .subscript {
+    font-size: 0.7em;
+    line-height: 0.25em;
+}
+
+.other .split {
+    width: 100%;
+    border: 2px solid #eee;
+    border-radius: 4px;
+}
+
+.other {
+    margin-top: 1rem;
+    padding: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--text-color);
+}
+
+.other .other-header {
+    font-size: 2rem;
+    font-weight: 550;
+}
+
+.chapters .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.chapters .chapter {
+    font-size: 1.2rem;
+    color: var(--text-color);
+
+    padding: 0.6rem 1rem;
+    background-color: var(--actv-bg-1);
+    border: 1px solid var(--main-1);
+    border-radius: 0.3rem;
+    box-shadow: 2px 2px 5px -2px var(--shdw-0);
+}
+
+.chapters .chapter:hover {
+    background-color: var(--actv-bg-2);
+}
+
+@media (min-width:800px) {
+
+    .cover,
+    .info {
+        vertical-align: top;
+        display: inline-block;
+        width: 43%;
+    }
+
+    .info {
+        width: 54%;
+    }
+}
+
+/* Dark mode */
+
+body,
+body.light {
+    --tag-white: #eee;
+    --tag-green: #d9f2d9;
+    --tag-yellow: #ffffcc;
+    --tag-red: #ffcccc;
+    --tag-black: #808080;
+    --read-bg: #5cc6ff;
+    --read-br: #fff;
+    --read-sh: #afe9ff;
+    --read-hv-bg: #008bd6;
+    --read-hv-br: #16a5f2;
+    --read-hv-sh: #8bcde7;
+}
+
+body.dark-mode {
+    --tag-white: #666;
+    --tag-green: #305030;
+    --tag-yellow: #666619;
+    --tag-red: #661919;
+    --tag-black: #000;
+    --read-bg: #0079b6;
+    --read-br: #002a3e;
+    --read-sh: #00405a;
+    --read-hv-bg: #008bd6;
+    --read-hv-br: #16a5f2;
+    --read-hv-sh: #528aa2;
+}

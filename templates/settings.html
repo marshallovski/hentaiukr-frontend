@@ -1,0 +1,51 @@
+{%- from 'modules/m_header' import header -%}
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <title>Налаштування | Хентай манґа українською</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Провідний сайт хентай манґи українською для перегляду, завантаження, читання" />
+    <meta name="googlebot" content="index">
+    <meta http-equiv="content-language" content="uk" />
+
+    <meta property="og:image" content="/assets/logo/logo_color_big.webp" />
+    <meta property="og:description" content="Провідний сайт хентай манґи українською для перегляду, завантаження, читання" />
+    <meta property="og:site_name" content="Хентай манґа українською" />
+    <meta property="og:type" content="website" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script type="text/javascript" src="/js/theme.js"></script>
+    <script defer type="text/javascript" src="/js/settings.js"></script>
+</head>
+
+<body>
+    {{ header(id='header-elem', settings_link=False) }}
+    <div class="container">
+        <div class="settings-group">
+            <label class="toggler" for="theme-toggle">
+                <div class="toggler-wrapper">
+                    <div class="text">
+                        <div class="name">
+                            Темна тема
+                        </div>
+                        <p class="description">Міняє колірну тему сайту.</p>
+                    </div>
+                    <div class="switch">
+                        <input id="theme-toggle" type="checkbox">
+                        <div class="indicator"></div>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
+</body>
+
+</html>

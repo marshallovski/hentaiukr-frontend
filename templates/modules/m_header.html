@@ -1,0 +1,31 @@
+{% macro header(id='header-elem', search_enabled=False, settings_link=True) -%}
+<div id="{{id}}" class="header">
+    <div class="content">
+        <a href="/">
+            <span class="logo">
+                <img src="/assets/logo/logo_color_small_tr.webp" />
+            </span>
+            <span class="site-name">
+                <img src="/assets/logo/site-name.png" />
+            </span>
+        </a>
+        <div class="header-right">
+            {% if search_enabled %}
+            <div class="search box">
+                <div class="input">
+                    <input id="search-input" />
+                </div>
+                <div id="search-button" class="button">
+                    <div class="img">
+                        <img src="/assets/reader/search.webp" />
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if settings_link %}
+            <a class="settings-link" href="/settings/"></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{%- endmacro -%}

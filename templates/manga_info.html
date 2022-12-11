@@ -1,0 +1,170 @@
+{%- from 'modules/m_header' import header -%}
+
+<!DOCTYPE html>
+<html lang="uk">
+<html prefix="og: https://ogp.me/ns#">
+
+<head>
+    <title>{{ manga.name }} | Хентай манґа українською</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="{{ manga.about }}">
+    <meta http-equiv="content-language" content="uk">
+    <meta name="rating" content="adult">
+
+    <!--normal bots-->
+    <meta name="googlebot" content="index">
+    <meta name="googlebot" content="notranslate">
+
+    <!--another bots-->
+    <meta name="yandex" content="noindex, nofollow">
+
+    <meta property="og:title" content="{{ manga.name }}">
+    <meta property="og:image" content="{{ manga.thumb.get('first') }}">
+    <meta property="og:description" content="{{ manga.about }}">
+    <meta property="og:site_name" content="Хентай манґа українською">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="uk_UA">
+
+    <meta property="twitter:title" content="Хентай манґа українською">
+    <meta property="twitter:description" content="{{ manga.about }}">
+    <meta property="twitter:image" content="{{ manga.thumb.get('first') }}">
+    <meta property="twitter:card" content="summary">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LQV0LBR97G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LQV0LBR97G');
+    </script>
+
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/info.css">
+
+    <script type="text/javascript" src="/js/theme.js"></script>
+    <script type="text/javascript" src="/js/helpers.js"></script>
+    <script type="text/javascript" src="/js/info.js"></script>
+</head>
+
+<body>
+    {{ header(id='header-elem') }}
+
+    <div class="container">
+        <div class="main">
+            <div class="data">
+                <div class="cover">
+                    <div id="img-placeholder">
+                        <img id="img" src="{{ manga.thumb.get('463') }}" alt="{{ manga.name }}" />
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="names">
+                        <div id="name-ukr"> {{ manga.name }} </div>
+
+                        <div id="names-other">
+                            {{ manga.names_other }}
+                        </div>
+                    </div>
+
+                    <div class="tags">
+                        {%- for tag in manga.tags %}
+                        <div class="tag {{tag.color}}">
+                            <a href="{{ tag.url }}">
+                                <div class="name">
+                                    {{ tag.name }}
+                                </div>
+                                <div class="count">
+                                    {{ tag.count }}
+                                </div>
+                            </a>
+                        </div>
+                        {%- endfor %}
+                    </div>
+
+                    <div id="sourse"> <b>Джерело :</b> {{ manga.source }} </div>
+                    <div id="author"> <b>Автор :</b> {{ manga.author }} </div>
+                    <div id="team"> <b>Переклад :</b> {{ manga.team.name }} </div>
+                    <div id="year"> <b>Рік виходу :</b> {{ manga.publication_year }} </div>
+                    <div id="public"> <b>Опубліковано :</b> {{ manga.add_date }} </div>
+                    <div id="pages-num"> <b>Кількість сторінок :</b> {{ manga.pages_num }} </div>
+                    <div id="about"> {{ manga.about }} </div>
+
+                    <br />
+                    <div class="info-buttons">
+                        <a id="link-to-reader" href="reader.html">
+                            <div class="info-button info-button-read">
+                                <div class="info-button-content">Читати</div>
+                            </div>
+                        </a>
+                        <a id="link-to-reader" href="vertical_reader.html">
+                            <div class="info-button info-button-read">
+                                <div class="info-button-content">Вертикалка (beta)</div>
+                            </div>
+                        </a>
+                        {% if manga.has_alter %}
+                        <a id="link-to-avif-reader" href="avif/reader.html">
+                            <div class="info-button info-button-read">
+                                <div class="info-button-content">
+                                    Менший трафік (.avif)
+                                    <!-- <div class="subscript"></div> -->
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="other">
+                <hr class="split" />
+                {% if manga.chapter_keys | length > 0 %}
+                <div class="chapters">
+                    <div class="other-header">
+                        Інші частини
+                    </div>
+                    <div class="list">
+                        {%- for chapter_id in manga.chapter_keys %}
+                        <div class="chapter">
+                            {% set url, name = manga.chapter_reference(chapter_id) %}
+                            <a href="{{ url }}">
+                                <div class="name">
+                                    {{ name }}
+                                </div>
+                            </a>
+                        </div>
+                        {%- endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

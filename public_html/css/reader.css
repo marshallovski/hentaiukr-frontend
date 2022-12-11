@@ -1,0 +1,46 @@
+@import url('paging.css');
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+#main {
+    background-color: var(--main-0);
+    display: flex;
+    flex-flow: column;
+    min-height: 100%;
+    width: fit-content;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.page {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.fit-height .page {
+    height: calc(100vh - 3rem);
+}
+
+.page img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+@media (min-width:1000px) {
+    #main {
+        padding: 1rem;
+        padding-bottom: 0;
+        border-radius: 1rem;
+        box-shadow: 0.2rem 0.2rem 3rem 0 var(--shdw-0);
+    }
+
+    .fit-height .page {
+        height: calc(100vh - 4rem);
+    }
+}

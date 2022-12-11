@@ -1,0 +1,152 @@
+{%- from 'modules/m_header' import header -%}
+
+<!DOCTYPE html>
+<html lang="uk">
+<html prefix="og: https://ogp.me/ns#">
+
+<head>
+    <title>{{ video.name }} | Хентай аніме українською</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="{{ video.about }}">
+    <meta http-equiv="content-language" content="uk">
+    <meta name="rating" content="adult">
+
+    <!--normal bots-->
+    <meta name="googlebot" content="index">
+
+    <!--another bots-->
+    <meta name="yandex" content="noindex, nofollow">
+
+    <meta property="og:title" content="{{ video.name }}">
+    <meta property="og:image" content="{{ video.thumb.get('first') }}">
+    <meta property="og:description" content="{{ video.about }}">
+    <meta property="og:site_name" content="Хентай манґа українською">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="uk_UA">
+
+    <meta property="twitter:title" content="Хентай манґа українською">
+    <meta property="twitter:description" content="{{ video.about }}">
+    <meta property="twitter:image" content="{{ video.thumb.get('first') }}">
+    <meta property="twitter:card" content="summary">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LQV0LBR97G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LQV0LBR97G');
+    </script>
+
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/info.css">
+    <link rel="stylesheet" href="/css/video_info.css">
+
+    <script type="text/javascript" src="/js/theme.js"></script>
+    <script type="text/javascript" src="/js/video_info.js"></script>
+
+    <link defer rel="stylesheet" href="{{video.info.caption_style}}">
+</head>
+
+<body>
+    {{ header(id='header-elem') }}
+
+    <div class="container">
+        <div class="main">
+            <div class="data">
+                <div class="cover">
+                    <div id="img-placeholder">
+                        <img id="img" src="{{ video.thumb.get('463') }}" alt="{{ video.name }}" />
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="names">
+                        <div id="name-ukr"> {{ video.name }} </div>
+
+                        <div id="names-other">
+                            {{ video.names_other }}
+                        </div>
+                    </div>
+
+                    <div class="tags">
+                        {%- for tag in video.tags %}
+                        <div class="tag {{tag.color}}">
+                            <a href="{{ tag.url }}">
+                                <div class="name">
+                                    {{ tag.name }}
+                                </div>
+                                <div class="count">
+                                    {{ tag.count }}
+                                </div>
+                            </a>
+                        </div>
+                        {%- endfor %}
+                    </div>
+
+                    <div id="author"> <b>Студія :</b> {{ video.studio }} </div>
+                    <div id="team"> <b>Переклад :</b> {{ video.team.name }} </div>
+                    <div id="year"> <b>Рік виходу :</b> {{ video.publication_year }} </div>
+                    <div id="public"> <b>Опубліковано :</b> {{ video.add_date }} </div>
+                    <div id="pages-num"> <b>Кількість епізодів :</b> {{ video.info.episodes| length }} </div>
+                    <div id="about"> {{ video.about }} </div>
+
+                    <br />
+                </div>
+            </div>
+
+            <div class="other">
+                <hr class="split" />
+                <div class="player">
+                    <div class="episodes">
+                        {%- for ep in video.info.episodes %}
+                        <video id="episiode-{{ep.sequence+1}}" class="episode" playsinline controls data-poster="{{video.episode_thumb(ep.sequence, 'video')}}" data-title="{{ep.name}}">
+                            <source src="{{ep.videofile}}" type="video/{{ep.format}}" />
+
+                            {%- if ep.has_subtitles %}
+                            <track kind="captions" label="Українські субтитри" src="{{ep.subtitles}}" srclang="uk" default />
+                            {%- endif %}
+                        </video>
+                        {%- endfor %}
+                    </div>
+                    <div class="switches">
+                        {%- for ep in video.info.episodes %}
+                        <div id="switch-{{ep.sequence+1}}" class="switch">
+                            {{ep.name}}
+                        </div>
+                        {%- endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+@media (min-width: 1024px) {
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg-color);
+        border-radius: 10px;
+        border: 1px solid var(--main-0);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--neut-2);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--neut-3);
+    }
+}

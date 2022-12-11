@@ -1,0 +1,73 @@
+.paging {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+    margin-top: auto;
+}
+
+.nav-elem {
+    background-color: var(--main-0);
+    box-shadow: 2px 3px 0.5rem 0 var(--main-2);
+    display: inline;
+    border: 1px solid var(--actv-bg-1);
+    border-radius: 5rem;
+    text-align: center;
+    width: 2rem;
+    cursor: pointer;
+}
+
+.nav-elem img {
+    width: 100%;
+    height: 75%;
+}
+
+.nav-page {
+    width: 3rem;
+    display: flex
+}
+
+.nav-icon img {
+    width: 60%;
+    height: 60%;
+}
+
+.dropup-pages {
+    display: block;
+    cursor: pointer;
+    height: 100%;
+    background-color: var(--main-0);
+    color: var(--text-color);
+    width: 3rem;
+    border-radius: 1rem;
+    appearance: none;
+    border: none;
+    text-align: center;
+}
+
+.dropup-pages:focus {
+    border: none;
+    outline: none;
+}
+
+.dropup-page {
+    display: block;
+    cursor: pointer;
+    height: 1.5rem;
+    border-radius: 1rem;
+}
+
+.inactive img {
+    opacity: 55%;
+}
+
+.inactive:hover {
+    border: 1px solid var(--main-0);
+    cursor: default;
+}
+
+/* Dark Mode */
+
+body.dark-mode .nav-elem img {
+    filter: invert() brightness(0.9);
+}

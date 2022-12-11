@@ -1,0 +1,19 @@
+#not-found .elem {
+    margin: 1rem auto;
+    text-align: center;
+    color: var(--text-color);
+}
+
+#not-found .buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#not-found .button {
+    min-width: 10rem;
+    width: 20%;
+
+    font-size: 2rem;
+    border: 2px solid var(--invt-0);
+    border-radius: 1rem;
+}

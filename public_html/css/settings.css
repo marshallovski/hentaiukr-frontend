@@ -1,0 +1,99 @@
+.setting+.setting {
+    margin-top: 0.4rem;
+}
+
+.toggler {
+    width: 100%;
+}
+
+.toggler-wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--actv-bg-1);
+    color: var(--text-color);
+    padding: 1rem 2rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+}
+
+.toggler .text {
+    display: inline-block;
+}
+
+.toggler .text .name {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.toggler .text .description {
+    font-size: 0.9em;
+    font-weight: normal;
+    margin: 0;
+}
+
+.toggler .switch {
+    position: relative;
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.toggler .switch input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3.4rem;
+    height: 1.7rem;
+    cursor: pointer;
+}
+
+.toggler .switch .indicator {
+    pointer-events: none;
+    width: 3.4rem;
+    height: 1.7rem;
+    position: relative;
+    background: var(--actv-bg-3);
+    border-radius: 1000rem;
+    padding: 3px;
+    transition: left .2s ease;
+}
+
+.toggler .switch .indicator:before,
+.toggler .switch .indicator:after {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%
+}
+
+.toggler .switch .indicator:after {
+    left: 0;
+    border-radius: 50%;
+    background: var(--actv-1);
+    transition: left .1s ease;
+}
+
+.toggler .switch .indicator:before {
+    display: none
+}
+
+.toggler .switch input:checked+.indicator {
+    background: var(--on-bg);
+}
+
+.toggler .switch input:checked+.indicator:after {
+    left: 50%;
+}
+
+/* Vars */
+
+body,
+body.light {
+    --on-bg: #0c0;
+}
+
+body.dark-mode {
+    --on-bg: #080;
+}

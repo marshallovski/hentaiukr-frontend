@@ -1,0 +1,68 @@
+/* Vars */
+
+body,
+body.light {
+    --bg-color: #eee;
+    --actv-bg-0: #fff;
+    --actv-bg-1: #f5f5f5;
+    --actv-bg-2: #eee;
+    --actv-bg-3: #ddd;
+    --actv-bg-4: #ccc;
+    --actv-bg-5: #bbb;
+    --actv-bg-6: #aaa;
+    --actv-0: #fff;
+    --actv-1: #f5f5f5;
+    --actv-2: #eee;
+    --actv-3: #ddd;
+    --text-0: #123;
+    --main-0: #fff;
+    --main-1: #eee;
+    --main-2: #ddd;
+    --main-3: #ccc;
+    --neut-0: #999;
+    --neut-1: #888;
+    --neut-2: #777;
+    --neut-3: #666;
+    --invt-0: #000;
+    --invt-1: #111;
+    --invt-2: #222;
+    --invt-3: #333;
+    --shdw-0: #ccc;
+    --shdw-1: #ddd;
+    --shdw-2: #333;
+    --shdw-3: #222;
+    --outl-0: #fff;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --actv-bg-0: #222;
+    --actv-bg-1: #333;
+    --actv-bg-2: #444;
+    --actv-bg-3: #454545;
+    --actv-bg-4: #555;
+    --actv-bg-5: #555555;
+    --actv-bg-6: #666;
+    --actv-0: #ccc;
+    --actv-1: #bbb;
+    --actv-2: #aaa;
+    --actv-3: #999;
+    --text-color: #ccc;
+    --main-0: #000;
+    --main-1: #111;
+    --main-2: #222;
+    --main-3: #333;
+    --neut-0: #666;
+    --neut-1: #777;
+    --neut-2: #888;
+    --neut-3: #999;
+    --invt-0: #fff;
+    --invt-1: #eee;
+    --invt-2: #ddd;
+    --invt-3: #ddd;
+    --shdw-0: #000;
+    --shdw-1: #111;
+    --shdw-2: #555;
+    --shdw-3: #666;
+    --outl-0: #282828;
+}

@@ -1,0 +1,12 @@
+{% macro object_cover(ns, object) -%}
+<div id="{{ns.counter}}" class="object-cover hidden">
+    <a href="{{ object.url }}">
+        <div class="image">
+            <img id="img-{{ns.counter}}" src="/assets/main/placeholder.webp" , alt="{{ object.name }}" />
+        </div>
+        <div class="name">
+            <h3>{{ object.name }}</h3>
+        </div>
+    </a>
+</div>
+{%- endmacro -%}

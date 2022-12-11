@@ -1,0 +1,51 @@
+.player {
+    background-color: var(--main-1);
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+}
+
+.player .episode {
+    width: 100%;
+    display: none;
+}
+
+.player .episode.active {
+    display: block;
+}
+
+.player .switches {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.3rem;
+    overflow-x: auto;
+}
+
+.player .switch {
+    flex: 1 1 0;
+    text-align: center;
+    min-width: fit-content;
+
+    padding: 0.4rem 1rem;
+    border: solid 1px var(--main-3);
+    border-radius: 0.3rem;
+
+    background-color: var(--actv-bg-3);
+    font-size: 1.5rem;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.player .switch.active {
+    background-color: var(--actv-bg-4);
+}
+
+.player .switch:hover {
+    background: #aaa;
+    border-radius: 0.5rem;
+}
+
+@media (max-width:800px) {
+    .player .switch {
+        font-size: 1.2rem;
+    }
+}

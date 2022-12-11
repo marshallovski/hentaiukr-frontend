@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Varela+Round&display=swap');
+
+body {
+    background-color: var(--bg-color)
+}
+
+.container {
+    padding-top: 0;
+}
+
+.pipe {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.err-logo {
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+}
+
+.err-logo-img {
+    width: 100%;
+}
+
+.err-text {
+    font-family: sans-serif;
+    margin: auto;
+    color: var(--text-color);
+}
+
+.err-code {
+    font-family: 'Varela Round';
+    font-size: 5rem;
+    text-align: center;
+}
+
+.err-message {
+    font-family: 'Balsamiq Sans', cursive;
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 0.5rem;
+}
+
+.err-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.err-button {
+    font-size: 2.2rem;
+    text-align: center;
+    padding: 0.5rem;
+    width: 14rem;
+
+    display: inline;
+    background-color: var(--main-0);
+    box-shadow: 2px 3px 0.5rem 0 var(--neut-0);
+    border: 1px solid var(--main-0);
+    border-radius: 1rem;
+
+    cursor: pointer;
+}
+
+.err-button:hover {
+    border: 1px solid var(--button-border-hover);
+}
+
+/* Vars */
+
+body,
+body.light {
+    --button-border-hover: #bef;
+}
+
+body.dark-mode {
+    --button-border-hover: rgb(0, 68, 91);
+}
