@@ -9,6 +9,11 @@
     padding-top: 0.2rem;
 }
 
+.footer {
+    color: var(--text-color);
+    text-align: center;
+}
+
 /* Objcets thumbnails */
 
 .hidden {

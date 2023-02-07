@@ -80,7 +80,7 @@ function generateHTML(objects) {
                         <img id="img-${i}" src="/assets/main/placeholder.webp" , alt="${objects[i].name}" />
                     </div>
                     <div class="name">
-                        <div>${objects[i].name}</div>
+                        <h3>${objects[i].name}</h3>
                     </div>
                 </a>
             </div>`
