@@ -1,143 +1,90 @@
-let mapping = {}
-let activeID = null
+async function loadVideoInfo(switches) {
+    const path = './plur.cfg.json';
+    const response = await fetch(path);
+    const info = await response.json();
 
-function progress_valid(p) {
-    if (p === undefined || p === null) {
-        return false
+    return helpers.objectFromKeysAndValues(Object.keys(switches), info);
+}
+
+function getStorage(ids) {
+    const storage = JSON.parse(localStorage.getItem(document.location.pathname))
+
+    if (storage !== undefined && storage !== null) {
+        return storage;
     }
 
-    if (p.episodes === undefined || p.episodes === null) {
-        return false
+    const newStorage = {
+        currentID: ids[0],
+        episodes: Object.fromEntries(ids.map(x => [x, {}])),
     }
 
-    if (p.current === undefined || p.current === null) {
-        return false
-    }
+    saveStorage(newStorage)
 
-    return true
+    return newStorage
 }
 
-function set_progress(key) {
-    let obj = get_progress()
-
-    obj.current = key
-
-    localStorage.setItem(
-        document.location.pathname,
-        JSON.stringify(obj),
-    );
+function saveStorage(storage) {
+    localStorage.setItem(document.location.pathname, JSON.stringify(storage))
 }
 
-function set_progress_time(key, time) {
-    let obj = get_progress()
+function set_progress_time(player) {
+    let storage = getStorage()
 
-    obj.episodes[key] = time
+    storage.episodes[storage.currentID].time = player.currentTime
 
-    localStorage.setItem(
-        document.location.pathname,
-        JSON.stringify(obj),
-    );
+    saveStorage(storage)
 }
 
-function get_progress() {
-    let obj = JSON.parse(localStorage.getItem(document.location.pathname));
-    if (progress_valid(obj)) {
-        return obj
-    }
-
-    return { episodes: {} }
+function setTime(player, timestamp) {
+    console.log('time set', timestamp)
+    setTimeout(function () { player.currentTime = timestamp || 0 }, 500);
 }
 
-function getID(el) {
-    return parseInt(el.id.split('-')[1])
-}
+function switch_to_episode(player, id, episode_info) {
+    return function (e) {
+        let storage = getStorage()
 
-function compare_ids(a, b) {
-    const intA = getID(a)
-    const intB = getID(b)
-
-    if (intA < intB) {
-        return -1
-    } else if (intA > intB) {
-        return 1
-    }
-
-    throw new Error('Same ids are not possible: ' + intA + ', ', intB)
-}
-
-function switch_to_episode(mapping, key, episode) {
-    return e => {
-        set_progress_time(activeID, mapping[activeID].player.currentTime)
-        mapping[activeID].switch.classList.remove('active')
-        mapping[activeID].episode.classList.remove('active')
-        mapping[activeID].player.pause()
-
-        const obj = get_progress(key)
-        episode.switch.classList.add('active')
-        episode.episode.classList.add('active')
-        episode.player.currentTime = obj.episodes[key]
-
-        activeID = key
-        set_progress(key)
-    }
-}
-
-function initPlur(episodes) {
-    const players = episodes.map(function (ep) {
-        return new Plyr(ep, {
-            title: ep.dataset.title,
-            controls: ['play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'download', 'fullscreen'],
-            setting: ['captions', 'quality', 'speed', 'loop'],
-            autopause: true,
-            invertTime: false,
-        })
-    });
-
-    return players
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    let episodes = [].slice.call(document.getElementsByClassName('episode'))
-    let switches = [].slice.call(document.getElementsByClassName('switch'))
-
-    episodes.sort(compare_ids)
-    switches.sort(compare_ids)
-
-    if (episodes.length != switches.length) {
-        throw new Error('Switches do not correspond to episode')
-    }
-
-    const players = initPlur(episodes)
-
-    for (let i = 0; i < switches.length; i++) {
-        mapping[getID(switches[i])] = {
-            switch: switches[i],
-            episode: episodes[i],
-            player: players[i],
+        if (id === storage.currentID) {
+            return
         }
+
+        storage.episodes[storage.currentID].time = player.currentTime
+        storage.currentID = id
+
+        player.source = episode_info
+        setTime(player, storage.episodes[storage.currentID]?.time)
+
+        saveStorage(storage)
     }
+}
 
-    activeID = getID(episodes[0])
-
-    episodes[0].classList.add('active')
-    switches[0].classList.add('active')
-
-    for (const [key, val] of Object.entries(mapping)) {
-        val.switch.addEventListener('click', switch_to_episode(mapping, key, val))
-        val.player.on('seeking', e => { set_progress_time(key, val.player.currentTime) })
-        val.player.on('pause', e => { set_progress_time(key, val.player.currentTime) })
+function newPlyrConfig() {
+    return {
+        title: 'Example Title',
+        setting: ['captions', 'quality', 'speed', 'loop'],
+        controls: ['play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'download', 'fullscreen'],
+        autopause: true,
+        invertTime: false,
+        quality: { default: 720, options: [1080, 720, 480] },
     }
+}
 
-    let progress = get_progress()
-    if (progress_valid(progress) && mapping[progress.current] !== undefined) {
-        switch_to_episode(mapping, progress.current, mapping[progress.current])()
+async function init() {
+    const player = new Plyr('#episiode', newPlyrConfig());
+    const switches = helpers.getElementsMapByClassName('switch');
+    const ids = Object.keys(switches);
+    const info = await loadVideoInfo(switches);
+    const storage = getStorage(ids);
 
-        mapping[progress.current].player.on('ready', e => {
-            setTimeout(function () {
-                mapping[progress.current].player.currentTime = progress.episodes[progress.current]
-            }, 500);
-        })
-    } else {
-        switch_to_episode(mapping, activeID, mapping[activeID])()
+    player.on('seeking', e => { set_progress_time(player) })
+    player.on('pause', e => { set_progress_time(player) })
+
+    player.source = info[storage.currentID]
+    setTime(player, storage.episodes[storage.currentID]?.time)
+
+    for (const id in switches) {
+        switches[id].addEventListener('click', switch_to_episode(player, id, info[id]))
     }
-});
+}
+
+document.addEventListener('DOMContentLoaded', () => init());

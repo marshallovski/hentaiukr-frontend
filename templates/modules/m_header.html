@@ -1,7 +1,7 @@
-{% macro header(id='header-elem', search_enabled=False, settings_link=True) -%}
+{% macro header(id='header-elem', search_enabled=False, settings_link=True, home_url='/') -%}
 <div id="{{id}}" class="header">
     <div class="content">
-        <a href="/">
+        <a href="{{home_url}}">
             <span class="logo">
                 <img src="/assets/logo/logo_color_small_tr.webp" />
             </span>

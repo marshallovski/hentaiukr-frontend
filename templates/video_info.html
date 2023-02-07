@@ -70,14 +70,14 @@
     <link rel="stylesheet" href="/css/video_info.css">
 
     <script type="text/javascript" src="/js/theme.js"></script>
-    <script type="text/javascript" src="/js/video_info.js"></script>
+    <script defer type="text/javascript" src="/js/helpers.js"></script>
+    <script defer type="text/javascript" src="/js/video_info.js"></script>
 
     <link defer rel="stylesheet" href="{{video.info.caption_style}}">
 </head>
 
 <body>
-    {{ header(id='header-elem') }}
-
+    {{ header(id='header-elem', home_url=home ) }}
     <div class="container">
         <div class="main">
             <div class="data">
@@ -119,6 +119,17 @@
                     <div id="about"> {{ video.about }} </div>
 
                     <br />
+                    <div class="info-buttons">
+                        {% if video.info.dvd_url %}
+                        <a id="link-to-dvd" href="{{video.info.dvd_url}}">
+                            <div class="info-button info-button-read">
+                                <div class="info-button-content">
+                                    DVD реліз
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 
@@ -126,15 +137,8 @@
                 <hr class="split" />
                 <div class="player">
                     <div class="episodes">
-                        {%- for ep in video.info.episodes %}
-                        <video id="episiode-{{ep.sequence+1}}" class="episode" playsinline controls data-poster="{{video.episode_thumb(ep.sequence, 'video')}}" data-title="{{ep.name}}">
-                            <source src="{{ep.videofile}}" type="video/{{ep.format}}" />
-
-                            {%- if ep.has_subtitles %}
-                            <track kind="captions" label="Українські субтитри" src="{{ep.subtitles}}" srclang="uk" default />
-                            {%- endif %}
+                        <video src="/assets/video/placeholder.mp4" id="episiode" class="episode" playsinline controls>
                         </video>
-                        {%- endfor %}
                     </div>
                     <div class="switches">
                         {%- for ep in video.info.episodes %}

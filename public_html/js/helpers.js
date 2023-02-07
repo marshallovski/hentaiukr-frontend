@@ -87,4 +87,22 @@ const helpers = {
     convertRemToPixels: function (rem) {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
     },
+
+    getElementsMapByClassName: function (className) {
+        let map = {};
+        [].slice.call(document.getElementsByClassName(className)).forEach(function (v) {
+            map[v.id] = v;
+        });
+
+        return map
+    },
+
+    objectFromKeysAndValues: function (keys, values) {
+        const result = {};
+        for (let i = 0; i < keys.length; i++) {
+            result[keys[i]] = values[i];
+        }
+
+        return result;
+    },
 }

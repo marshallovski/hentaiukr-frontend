@@ -6,11 +6,6 @@
 
 .player .episode {
     width: 100%;
-    display: none;
-}
-
-.player .episode.active {
-    display: block;
 }
 
 .player .switches {
