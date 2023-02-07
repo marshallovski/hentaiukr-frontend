@@ -38,6 +38,13 @@
 .object-cover .name h3 {
     font-size: 1em;
     color: var(--text-color);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .object-cover {
