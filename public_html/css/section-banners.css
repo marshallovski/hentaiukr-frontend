@@ -22,8 +22,8 @@
     content: var(--tg-img-url);
 }
 
-#link-to-patreon {
-    content: var(--patreon-img-url)
+#link-to-sponsor {
+    content: var(--sponsor-img-url)
 }
 
 #link-to-video {
@@ -40,7 +40,7 @@
 
 body {
     --tg-img-url: url('/assets/main/banner/tg.webp');
-    --patreon-img-url: url('/assets/main/banner/patreon.webp');
+    --sponsor-img-url: url('/assets/main/banner/buymeacoffee.webp');
     --video-img-url: url('/assets/main/banner/video.webp');
     --manga-img-url: url('/assets/main/banner/manga.webp');
     --korean-img-url: url('/assets/main/banner/korean.webp')
@@ -49,7 +49,7 @@ body {
 @media (max-width: 1024px) {
     body {
         --tg-img-url: url('/assets/main/banner/tg-small.webp');
-        --patreon-img-url: url('/assets/main/banner/patreon-small.webp');
+        --sponsor-img-url: url('/assets/main/banner/buymeacoffee-small.webp');
         --video-img-url: url('/assets/main/banner/video-small.webp');
         --manga-img-url: url('/assets/main/banner/manga-small.webp');
         --korean-img-url: url('/assets/main/banner/korean-small.webp')
