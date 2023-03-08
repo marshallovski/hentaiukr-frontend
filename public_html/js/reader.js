@@ -1,150 +1,152 @@
 let zoomed = false
 
-function cache_progress(page) {
+function cacheProgress(page) {
     localStorage.setItem(document.location.pathname, page);
 }
 
-function preloadImage(src) {
-    if (!this.preloaded) {
-        this.preloaded = {}
+class Reader {
+    constructor(elems, pages, page) {
+        this
     }
-
-    let img = this.preloaded[src]
-    if (img) {
-        return img
-    }
-
-    img = new Image();
-    img.src = src
-    img.id = "page"
-    this.preloaded[src] = img
-
-    return img
 }
 
-function preloadFunc(page, pages) {
-    const preloadSize = 3
+function newReader(elems, pages, page) {
+    return {
+        elems: elems,
+        pages: pages,
+        page: page,
+        preloadSize: 3,
+        preloaded: {},
+        zoomed: false,
 
-    return function () {
-        const len = pages.length
+        Zoom: function () {
+            this.elems.main.classList.toggle('fit-height');
+            this.zoomed = !this.zoomed;
+            localStorage.setItem('reader:zoomed', zoomed);
+        },
 
-        for (let i = page + 1; i < page + preloadSize && i < len; i++) {
-            preloadImage(pages[i].src);
+        Next: function () {
+            if (this.page >= pages.length - 1) {
+                return
+            }
+
+            this.update(this.page + 1);
+        },
+
+        Prev: function () {
+            if (this.page <= 0) {
+                return
+            }
+
+            this.update(this.page - 1);
+        },
+
+        First: function () {
+            this.update(0);
+        },
+
+        Last: function () {
+            this.update(this.pages.length - 1);
+        },
+
+        update: function (page) {
+            this.page = page;
+
+            this.setPageImage(this.buildImage(this.pages[page].src));
+            this.elems.page_selector.val = page + 1
+
+            $("html, body").animate({ scrollTop: 0 }, 300);
+            helpers.updateSearchQuery('page', page + 1)
+
+            cacheProgress(page)
+            this.updatePreload()
+        },
+
+        setPageImage: function (newImg) {
+            this.elems.page.replaceWith(newImg);
+            this.elems.page = newImg;
+        },
+
+        updatePreload: function () {
+            // start preloading only after current image has been loaded
+            if (this.elems.page.complete) {
+                this.preloadFunc(this, this.page)
+            } else {
+                this.elems.page.addEventListener('load', () => { this.preloadFunc(this, this.page) }, { once: true })
+            }
+        },
+
+        preloadFunc: function (self, page) {
+            for (let i = page + 1; i < page + self.preloadSize && i < self.pages.length; i++) {
+                self.buildImage(self.pages[i].src);
+            }
+
+            for (let i = page - 1; i > page - self.preloadSize && i > 0; i--) {
+                self.buildImage(self.pages[i].src);
+            }
+        },
+
+        buildImage: function (src) {
+            let img = this.preloaded[src]
+            if (img) {
+                return img
+            }
+
+            img = new Image();
+            img.src = src
+            img.id = "page"
+            this.preloaded[src] = img
+
+            return img
         }
-
-        for (let i = page - 1; i > page - preloadSize && i > 0; i--) {
-            preloadImage(pages[i].src);
-        }
     }
 }
 
-function preload(page, pages) {
-    const display = document.querySelector('#page')
-    if (display.complete) {
-        preloadFunc(page, pages)()
-    } else {
-        display.addEventListener('load', preloadFunc(page, pages), { once: true })
+function getCurrentPage(length) {
+    const queryPage = helpers.decodeSearchQuery(window.location.search).page
+    if (queryPage) {
+        return helpers.mustIntInRange(queryPage, 1, length) - 1 // query parameter indexes start with 1
     }
+
+    // value not in query params fallback to storage and default
+    return helpers.mustIntInRange(localStorage.getItem(document.location.pathname), 0, length - 1)
 }
 
-function update(page, pages) {
-    $("#page").replaceWith(preloadImage(pages[page].src))
-    $("#page-selector").val(page + 1)
-
-    $("html, body").animate({ scrollTop: 0 }, 300);
-    helpers.updateSearchQuery('page', page + 1)
-    cache_progress(page)
-    preload(page, pages)
-}
-
-function func_prev() {
-    if (page > 0) {
-        page -= 1
-
-        update(page, pages)
-    }
-}
-
-function func_next() {
-    if (page < pages.length - 1) {
-        page += 1
-
-        update(page, pages)
-    }
-}
-
-function func_zoom() {
-    $("#main").toggleClass("fit-height")
-
-    zoomed = !zoomed
-    localStorage.setItem('reader-full', zoomed)
-}
 
 function init() {
-    page = helpers.decodeSearchQuery(window.location.search).page
-    if (page) {
-        page = page - 1
-        if (isNaN(page) || page < 0) {
-            page = 0
-        } else if (page >= pages) {
-            page = pages - 1
-        }
-    } else {
-        page = localStorage.getItem(document.location.pathname);
-        if (page !== null) {
-            page = parseInt(page)
+    const page = getCurrentPage(pages.length)
+
+    const elems = {
+        main: document.getElementById('main'),
+        page: document.getElementById('page'),
+        page_selector: document.getElementById('page-selector'),
+    }
+
+    const reader = newReader(elems, pages, page);
+
+    reader.update(page);
+    if (localStorage.getItem('reader:zoomed') === 'true') {
+        reader.Zoom()
+    }
+
+    document.getElementById('page-zoom').addEventListener('click', () => { reader.Zoom() })
+    document.getElementById('page-prev').addEventListener('click', () => { reader.Prev() })
+    document.getElementById('page-next').addEventListener('click', () => { reader.Next() })
+    document.getElementById('page-first').addEventListener('click', () => { reader.First() })
+    document.getElementById('page-last').addEventListener('click', () => { reader.Last() })
+
+    document.getElementById('page-container').addEventListener('click', function (event) {
+        if (event.clientX > window.innerWidth / 2) {
+            reader.Next()
         } else {
-            page = 0
-        }
-    }
-
-    update(page, pages)
-    if (localStorage.getItem('reader-full') === 'true') {
-        func_zoom()
-    }
-
-    $("#page-prev").click(func_prev)
-    $("#page-next").click(func_next)
-    $("#page-first").click(() => {
-        page = 0
-        update(page, pages)
-    })
-    $("#page-last").click(() => {
-        page = pages.length - 1
-        update(page, pages)
-    })
-
-    $("#prev-page-overlay").click(func_prev)
-    $("#next-page-overlay").click(func_next)
-
-    $("#page-zoom").click(func_zoom)
-
-    document.onkeydown = checkKey;
-
-    document.addEventListener('click', function (event) {
-        if (event.target == document.getElementById("page")) {
-            if (event.clientX > $(window).width() / 2) {
-                func_next()
-            } else {
-                func_prev()
-            }
+            reader.Prev()
         }
     });
 
-    $("#page-selector").on('change', function () {
-        page = this.value - 1
-        update(page, pages);
-    });
+    const keyListener = newKeyListener(document)
 
-    function checkKey(e) {
-        e = e || window.event;
-
-        if (e.keyCode == "37") {
-            func_prev()
-        } else if (e.keyCode == "39") {
-            func_next()
-        }
-    }
+    keyListener.registerKey(['KeyA', 'ArrowLeft'], () => { reader.Prev() })
+    keyListener.registerKey(['KeyD', 'ArrowRight'], () => { reader.Next() })
 }
 
 document.addEventListener('DOMContentLoaded', init)

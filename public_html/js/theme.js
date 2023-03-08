@@ -1,6 +1,12 @@
 const theme = {
     isDark: function () {
-        return JSON.parse(localStorage.getItem('dark-mode-set'))
+        let dark = localStorage.getItem('dark-mode-set')
+
+        if (dark !== undefined || dark === null) {
+            dark = "true"
+        }
+
+        return JSON.parse()
     },
     toggle: function () {
         const darkModeSet = document.body.classList.toggle('dark-mode');
