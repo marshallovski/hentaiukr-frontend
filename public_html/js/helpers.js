@@ -34,7 +34,7 @@ const helpers = {
     },
 
     encodeSearchQuery: function (params) {
-        if ($.isEmptyObject(params)) {
+        if (Object.keys(params).length === 0) {
             return ''
         }
 
@@ -59,7 +59,7 @@ const helpers = {
     },
 
     setSearchQueryParam: function (params, key, value) {
-        if (!$.isArray(value)) {
+        if (value.constructor !== Array) {
             value = [value]
         }
 
@@ -105,4 +105,74 @@ const helpers = {
 
         return result;
     },
+
+    randInt: function (n) {
+        return (n * Math.random()) << 0
+    },
+
+    randomProperty: function (obj) {
+        const keys = Object.keys(obj);
+
+        return obj[keys[this.randInt(keys.length)]];
+    },
+
+    scrollToTop: function (after) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => window.scrollTo(0, 0), 500)
+    },
+
+    mustIntInRange: function (value, min, max) {
+        const int = parseInt(value)
+
+        if (isNaN(int)) {
+            return min
+        }
+
+        if (int < min) {
+            return min
+        }
+
+        if (int > max) {
+            return max
+        }
+
+        return int
+    },
+
+    getJSON: async function (path) {
+        const response = await fetch(path);
+        const data = await response.json();
+
+        return data;
+    },
+}
+
+function newKeyListener(elem) {
+    const listener = {
+        registry: {},
+        listen: function (e) {
+            const func = this.registry[e.code]
+            if (!func) {
+                return
+            }
+
+            func()
+        },
+
+        registerKey: function (keys, func) {
+            if (keys.constructor === Array) {
+                for (const i in keys) {
+                    this.registry[keys[i]] = func
+                }
+
+                return
+            }
+
+            this.registry[keys] = func
+        }
+    };
+
+    elem?.addEventListener('keydown', (e) => listener.listen(e))
+
+    return listener
 }

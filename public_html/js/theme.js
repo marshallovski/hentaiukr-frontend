@@ -1,6 +1,11 @@
 const theme = {
     isDark: function () {
-        return JSON.parse(localStorage.getItem('dark-mode-set'))
+        const isSet = localStorage.getItem('dark-mode-set')
+        if (isSet === null) {
+            return true // default is dark theme
+        }
+
+        return JSON.parse(isSet);
     },
     toggle: function () {
         const darkModeSet = document.body.classList.toggle('dark-mode');
@@ -38,6 +43,7 @@ const theme = {
         localStorage.clear()
 
         for (const key in temp) {
+            if (temp[key] === null) continue;
             localStorage.setItem(key, temp[key])
         }
 
