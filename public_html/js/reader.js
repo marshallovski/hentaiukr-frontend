@@ -55,7 +55,7 @@ function newReader(elems, pages, page) {
             this.setPageImage(this.buildImage(this.pages[page].src));
             this.elems.page_selector.val = page + 1
 
-            $("html, body").animate({ scrollTop: 0 }, 300);
+            window.scrollTo({ top: 0 });
             helpers.updateSearchQuery('page', page + 1)
 
             cacheProgress(page)

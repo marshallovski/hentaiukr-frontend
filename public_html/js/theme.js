@@ -1,12 +1,11 @@
 const theme = {
     isDark: function () {
-        let dark = localStorage.getItem('dark-mode-set')
-
-        if (dark !== undefined || dark === null) {
-            dark = "true"
+        const isSet = localStorage.getItem('dark-mode-set')
+        if (isSet === undefined) {
+            return true // default is dark theme
         }
 
-        return JSON.parse()
+        return JSON.parse(isSet);
     },
     toggle: function () {
         const darkModeSet = document.body.classList.toggle('dark-mode');

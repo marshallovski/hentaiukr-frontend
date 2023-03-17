@@ -27,7 +27,7 @@ body {
 .err-text {
     font-family: sans-serif;
     margin: auto;
-    color: var(--text-color);
+    color: var(--text-0);
 }
 
 .err-code {

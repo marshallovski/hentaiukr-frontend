@@ -23,7 +23,7 @@
 
 .info {
     font-size: 1.2rem;
-    color: var(--text-color)
+    color: var(--text-0)
 }
 
 .names {
@@ -176,7 +176,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    color: var(--text-color);
+    color: var(--text-0);
 }
 
 .other .other-header {
@@ -192,7 +192,7 @@
 
 .chapters .chapter {
     font-size: 1.2rem;
-    color: var(--text-color);
+    color: var(--text-0);
 
     padding: 0.6rem 1rem;
     background-color: var(--actv-bg-1);

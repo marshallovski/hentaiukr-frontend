@@ -37,7 +37,7 @@
     cursor: pointer;
     height: 100%;
     background-color: var(--main-0);
-    color: var(--text-color);
+    color: var(--text-0);
     width: 3rem;
     border-radius: 1rem;
     appearance: none;

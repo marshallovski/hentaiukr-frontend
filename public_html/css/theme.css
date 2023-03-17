@@ -27,6 +27,7 @@ body.light {
     --invt-1: #111;
     --invt-2: #222;
     --invt-3: #333;
+    --invt-4: #444;
     --shdw-0: #ccc;
     --shdw-1: #ddd;
     --shdw-2: #333;
@@ -35,19 +36,19 @@ body.light {
 }
 
 body.dark-mode {
-    --bg-color: #121212;
-    --actv-bg-0: #222;
-    --actv-bg-1: #333;
-    --actv-bg-2: #444;
-    --actv-bg-3: #454545;
-    --actv-bg-4: #555;
-    --actv-bg-5: #555555;
+    --bg-color: #050505;
+    --actv-bg-0: #111;
+    --actv-bg-1: #222;
+    --actv-bg-2: #333;
+    --actv-bg-3: #383838;
+    --actv-bg-4: #424242;
+    --actv-bg-5: #555;
     --actv-bg-6: #666;
     --actv-0: #ccc;
     --actv-1: #bbb;
     --actv-2: #aaa;
     --actv-3: #999;
-    --text-color: #ccc;
+    --text-0: #ccc;
     --main-0: #000;
     --main-1: #111;
     --main-2: #222;
@@ -60,9 +61,11 @@ body.dark-mode {
     --invt-1: #eee;
     --invt-2: #ddd;
     --invt-3: #ddd;
+    --invt-4: #bbb;
     --shdw-0: #000;
     --shdw-1: #111;
-    --shdw-2: #555;
-    --shdw-3: #666;
+    --shdw-2: #222;
+    --shdw-3: #333;
+    --shdw-4: #444;
     --outl-0: #282828;
 }

@@ -106,6 +106,16 @@ const helpers = {
         return result;
     },
 
+    randInt: function (n) {
+        return (n * Math.random()) << 0
+    },
+
+    randomProperty: function (obj) {
+        const keys = Object.keys(obj);
+
+        return obj[keys[this.randInt(keys.length)]];
+    },
+
     scrollToTop: function (after) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => window.scrollTo(0, 0), 500)
@@ -127,6 +137,13 @@ const helpers = {
         }
 
         return int
+    },
+
+    getJSON: async function (path) {
+        const response = await fetch(path);
+        const data = await response.json();
+
+        return data;
     },
 }
 

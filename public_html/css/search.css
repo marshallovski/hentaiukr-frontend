@@ -1,7 +1,19 @@
+@import url('paging.css');
+@import url('thumbnail.css');
+
+
+.object-group-table {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0.3rem auto;
+    width: 100%;
+}
+
 #not-found .elem {
     margin: 1rem auto;
     text-align: center;
-    color: var(--text-color);
+    color: var(--text-0);
 }
 
 #not-found .buttons {
