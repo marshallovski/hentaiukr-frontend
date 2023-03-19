@@ -265,7 +265,6 @@ class Pager {
     _setPage(page) {
         if (page < 0 || page > this.lastPage || page === this.currentPage) return;
 
-        console.log('Page: ' + page)
         this.currentPage = page;
 
         const willShow = this.items.slice(page * this.itemsPerPage, (page + 1) * this.itemsPerPage);
@@ -378,7 +377,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.error(err);
     }
 
-    console.log(filtered);
     if (filtered.length === 0) {
         const notFound = document.getElementById('not-found');
         const paging = document.getElementById('paging');
@@ -406,4 +404,4 @@ document.addEventListener('DOMContentLoaded', async function () {
         first: document.getElementById('page-first'),
         last: document.getElementById('page-last'),
     });
-})
+});

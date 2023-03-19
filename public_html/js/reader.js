@@ -1,109 +1,117 @@
-let zoomed = false
+class Pager { // this duplicates code in search.js // should reuse
+    constructor(numberOfPages, onChange, controllers) {
+        this.lastPage = numberOfPages - 1;
+        this.currentPage = 0;
+        this.controllers = controllers;
+        this.onChange = onChange;
 
-function cacheProgress(page) {
-    localStorage.setItem(document.location.pathname, page);
-}
+        this._initListeners(controllers);
+        this._updateControllersState();
+    }
 
-class Reader {
-    constructor(elems, pages, page) {
-        this
+    setPage(page) {
+        if (page < 0 || page > this.lastPage || page === this.currentPage) return;
+
+        this.currentPage = page;
+        this.onChange(page);
+        this._updateControllersState();
+    }
+
+    _next() { this.setPage(this.currentPage + 1); }
+    _prev() { this.setPage(this.currentPage - 1); }
+    _first() { this.setPage(0); }
+    _last() { this.setPage(this.lastPage); }
+
+    _updateControllersState() {
+        if (this.currentPage === 0) {
+            this.controllers.first.classList.add('inactive');
+            this.controllers.prev.classList.add('inactive');
+        } else {
+            this.controllers.first.classList.remove('inactive');
+            this.controllers.prev.classList.remove('inactive');
+        }
+
+        if (this.currentPage === this.lastPage) {
+            this.controllers.last.classList.add('inactive');
+            this.controllers.next.classList.add('inactive');
+        } else {
+            this.controllers.last.classList.remove('inactive');
+            this.controllers.next.classList.remove('inactive');
+        }
+        this.controllers.pageSelector.value = this.currentPage + 1
+    }
+
+    _initListeners(controllers) {
+        controllers.pageSelector.addEventListener('change', (e) => this.setPage(e.target.value - 1));
+        controllers.first.addEventListener('click', (e) => this._first());
+        controllers.last.addEventListener('click', (e) => this._last());
+        controllers.next.addEventListener('click', (e) => this._next());
+        controllers.prev.addEventListener('click', (e) => this._prev());
     }
 }
 
-function newReader(elems, pages, page) {
-    return {
-        elems: elems,
-        pages: pages,
-        page: page,
-        preloadSize: 3,
-        preloaded: {},
-        zoomed: false,
+class Reader {
+    constructor(pages, mainContainer, imageContainer, zoomed) {
+        this.pages = pages;
+        this.mainContainer = mainContainer;
+        this.imageContainer = imageContainer;
+        this.zoomed = zoomed;
+        this.preloadSize = 3;
+        this.preloaded = {};
 
-        Zoom: function () {
-            this.elems.main.classList.toggle('fit-height');
-            this.zoomed = !this.zoomed;
-            localStorage.setItem('reader:zoomed', zoomed);
-        },
+        if (zoomed) this.zoom();
+    }
 
-        Next: function () {
-            if (this.page >= pages.length - 1) {
-                return
-            }
+    zoom() {
+        this.mainContainer.classList.toggle('fit-height')
+        this.zoomed = !this.zoomed;
+        localStorage.setItem('reader:zoomed', this.zoomed);
+    }
 
-            this.update(this.page + 1);
-        },
+    update(page) {
+        this.imageContainer.src = this._buildImage(this.pages[page].src).src
+        window.scrollTo({ top: 0 });
 
-        Prev: function () {
-            if (this.page <= 0) {
-                return
-            }
+        document.location.hash = page + 1
+        localStorage.setItem(document.location.pathname, page);
 
-            this.update(this.page - 1);
-        },
+        this._updatePreload(page)
+    }
 
-        First: function () {
-            this.update(0);
-        },
+    _updatePreload(page) {
+        // start preloading only after current image has been loaded
+        if (this.imageContainer.complete) {
+            this._preloadFunc(this, page)
+        } else {
+            this.imageContainer.addEventListener('load', () => { this._preloadFunc(this, page) }, { once: true })
+        }
+    }
 
-        Last: function () {
-            this.update(this.pages.length - 1);
-        },
+    _preloadFunc(self, page) {
+        for (let i = page + 1; i < page + self.preloadSize && i < self.pages.length; i++) {
+            self._buildImage(self.pages[i].src);
+        }
 
-        update: function (page) {
-            this.page = page;
+        for (let i = page - 1; i > page - self.preloadSize && i > 0; i--) {
+            self._buildImage(self.pages[i].src);
+        }
+    }
 
-            this.setPageImage(this.buildImage(this.pages[page].src));
-            this.elems.page_selector.val = page + 1
-
-            window.scrollTo({ top: 0 });
-            helpers.updateSearchQuery('page', page + 1)
-
-            cacheProgress(page)
-            this.updatePreload()
-        },
-
-        setPageImage: function (newImg) {
-            this.elems.page.replaceWith(newImg);
-            this.elems.page = newImg;
-        },
-
-        updatePreload: function () {
-            // start preloading only after current image has been loaded
-            if (this.elems.page.complete) {
-                this.preloadFunc(this, this.page)
-            } else {
-                this.elems.page.addEventListener('load', () => { this.preloadFunc(this, this.page) }, { once: true })
-            }
-        },
-
-        preloadFunc: function (self, page) {
-            for (let i = page + 1; i < page + self.preloadSize && i < self.pages.length; i++) {
-                self.buildImage(self.pages[i].src);
-            }
-
-            for (let i = page - 1; i > page - self.preloadSize && i > 0; i--) {
-                self.buildImage(self.pages[i].src);
-            }
-        },
-
-        buildImage: function (src) {
-            let img = this.preloaded[src]
-            if (img) {
-                return img
-            }
-
+    _buildImage(src) {
+        let img = this.preloaded[src]
+        if (!img) {
             img = new Image();
             img.src = src
             img.id = "page"
             this.preloaded[src] = img
-
-            return img
         }
+
+        return img
     }
 }
 
 function getCurrentPage(length) {
-    const queryPage = helpers.decodeSearchQuery(window.location.search).page
+    const queryPage = document.location.hash.slice(1)
     if (queryPage) {
         return helpers.mustIntInRange(queryPage, 1, length) - 1 // query parameter indexes start with 1
     }
@@ -112,41 +120,36 @@ function getCurrentPage(length) {
     return helpers.mustIntInRange(localStorage.getItem(document.location.pathname), 0, length - 1)
 }
 
+function getZommedStatus() {
+    return localStorage.getItem('reader:zoomed') === 'true'
+}
 
-function init() {
-    const page = getCurrentPage(pages.length)
+document.addEventListener('DOMContentLoaded', function () {
+    const currentPage = getCurrentPage(pages.length);
+    const zoomed = getZommedStatus();
 
-    const elems = {
-        main: document.getElementById('main'),
-        page: document.getElementById('page'),
-        page_selector: document.getElementById('page-selector'),
-    }
-
-    const reader = newReader(elems, pages, page);
-
-    reader.update(page);
-    if (localStorage.getItem('reader:zoomed') === 'true') {
-        reader.Zoom()
-    }
-
-    document.getElementById('page-zoom').addEventListener('click', () => { reader.Zoom() })
-    document.getElementById('page-prev').addEventListener('click', () => { reader.Prev() })
-    document.getElementById('page-next').addEventListener('click', () => { reader.Next() })
-    document.getElementById('page-first').addEventListener('click', () => { reader.First() })
-    document.getElementById('page-last').addEventListener('click', () => { reader.Last() })
-
-    document.getElementById('page-container').addEventListener('click', function (event) {
-        if (event.clientX > window.innerWidth / 2) {
-            reader.Next()
-        } else {
-            reader.Prev()
-        }
+    const mainContainer = document.getElementById('main');
+    const imageContainer = document.getElementById('page');
+    const reader = new Reader(pages, mainContainer, imageContainer, zoomed);
+    const pager = new Pager(pages.length, (page) => reader.update(page), {
+        pageSelector: document.getElementById('page-selector'),
+        prev: document.getElementById('page-prev'),
+        next: document.getElementById('page-next'),
+        first: document.getElementById('page-first'),
+        last: document.getElementById('page-last'),
     });
+
+    document.getElementById('page-zoom').addEventListener('click', () => { reader.zoom() })
 
     const keyListener = newKeyListener(document)
 
-    keyListener.registerKey(['KeyA', 'ArrowLeft'], () => { reader.Prev() })
-    keyListener.registerKey(['KeyD', 'ArrowRight'], () => { reader.Next() })
-}
+    keyListener.registerKey(['KeyA', 'ArrowLeft'], () => { pager._prev() })
+    keyListener.registerKey(['KeyD', 'ArrowRight'], () => { pager._next() })
 
-document.addEventListener('DOMContentLoaded', init)
+    document.getElementById('page-container').addEventListener('click', function (event) {
+        if (event.clientX > window.innerWidth / 2) pager._next(); else pager._prev()
+    });
+
+    pager.setPage(currentPage);
+    reader.update(currentPage);
+})
