@@ -87,6 +87,30 @@
     left: 50%;
 }
 
+/* ---------- */
+
+.faq-container {
+    color: var(--text-0);
+}
+
+.faq-container li {
+    margin-left: 2rem;
+}
+
+.faq-container h1 {
+    text-align: center;
+    margin: 3rem;
+    font-family: 'Brush Script MT', cursive;
+}
+
+.faq-container h2 {
+    margin-top: 2rem;
+}
+
+.faq-container h3 {
+    margin-top: 1rem;
+}
+
 /* Vars */
 
 body,

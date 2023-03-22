@@ -36,7 +36,6 @@ function set_progress_time(player) {
 }
 
 function setTime(player, timestamp) {
-    console.log('time set', timestamp)
     setTimeout(function () { player.currentTime = timestamp || 0 }, 500);
 }
 

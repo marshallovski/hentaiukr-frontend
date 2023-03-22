@@ -1,13 +1,24 @@
 .object-cover .image {
-    display: flex;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    /* padding: 0.5rem 0 0 0; */
     min-height: 200px;
+    border-radius: var(--border-radius);
+    /* margin: 0.2rem 0 0 0; */
+    padding-top: 148%;
+    position: relative;
+    overflow-y: clip;
 }
 
 .image img {
-    max-width: 95%;
+    max-width: 100%;
     margin: auto;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    padding: 0.3rem 0 0 0;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .object-cover .name {
@@ -32,14 +43,15 @@
 }
 
 .object-cover {
+    --border-radius: 0.5rem;
     display: inline;
-    border-radius: 1rem;
+    border-radius: var(--border-radius);
     border: solid 0px;
     margin: 0.4rem;
     background-color: var(--actv-bg-0);
     box-shadow: 0.05rem 0.15rem 0.5rem var(--shdw-3);
     vertical-align: top;
-    display: inline-block;
+    height: 100%;
 }
 
 @media (min-width:1000px) {
