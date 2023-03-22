@@ -85,13 +85,15 @@
 
         {% for row in content_rows -%}
         <div class="object-group-row">
-            <div class="row-header">
-                <div class="row-text">{{row.name}}</div>
-                <a href="/search/?section={{row.id}}" class="row-redirect">
-                    <div class="row-redirect-text">перегляд</div>
-                    <img class='row-redirect-icon icon' alt='Усі' src='/assets/icons/1px.png' />
-                </a>
-            </div>
+            <a href="/search/?section={{row.id}}">
+                <div class="row-header">
+                    <div class="row-text">{{row.name}}</div>
+                    <div class="row-redirect">
+                        <div class="row-redirect-text">перегляд</div>
+                        <img class='row-redirect-icon icon' alt='Усі' src='/assets/icons/1px.png' />
+                    </div>
+                </div>
+            </a>
             {% set ns = namespace(counter=0, type=row.id) -%}
             <div class="object-row">
                 {% for row in split_to_rows(row.rows, row.objects) -%}
