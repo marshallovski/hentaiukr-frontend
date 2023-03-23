@@ -74,15 +74,6 @@
     {{ header(id='header-elem') }}
 
     <div class="my-container">
-        <div class="object-group-table">
-            {% set ns = namespace(counter=0) -%}
-            {% for object in object_group_new -%}
-            {{ object_cover(ns, object) }}
-
-            {% set ns.counter = ns.counter + 1 -%}
-            {% endfor -%}
-        </div>
-
         {% for row in content_rows -%}
         <div class="object-group-row">
             <a href="/search/?section={{row.id}}">
@@ -106,6 +97,27 @@
                 </div>
                 {% endfor -%}
             </div>
+        </div>
+        {% endfor -%}
+    </div>
+
+    <div class="hidden" style="display:none">
+        {% for row in content_rows -%}
+        <div>
+            <h1>{{row.name}}</h1>
+            {% for object in row.objects -%}
+            <div>
+                <h2>{{object.id}}</h2>
+                <h2>{{object.name}}</h2>
+                <h3>{{object.ukr_name}}</h3>
+                <h3>{{object.eng_name}}</h3>
+                <h3>{{object.orig_name}}</h3>
+                <h4>{{object.team.name}}</h4>
+                <h4>{{object.add_date}}</h4>
+                <h4>{{object.publication_year}}</h4>
+                <p>{{object.about}}</p>
+            </div>
+            {% endfor -%}
         </div>
         {% endfor -%}
     </div>
