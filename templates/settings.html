@@ -1,4 +1,6 @@
 {%- from 'modules/m_header' import header -%}
+{%- from 'modules/m_dark_style' import dark_style -%}
+
 <!DOCTYPE html>
 <html lang="uk">
 
@@ -20,8 +22,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="/css/settings.css">
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/settings.css">
 
     <script type="text/javascript" src="/js/theme.js"></script>
     <script defer type="text/javascript" src="/js/helpers.js"></script>
@@ -30,10 +32,11 @@
 </head>
 
 <body>
+    {{ dark_style() }}
     {{ header(id='header-elem') }}
     <div class="my-container">
         <div class="settings-group">
-            <label class="toggler" for="theme-toggle">
+            <label class="toggler setting" for="theme-toggle">
                 <div class="toggler-wrapper">
                     <div class="text">
                         <div class="name">
@@ -43,6 +46,20 @@
                     </div>
                     <div class="switch">
                         <input id="theme-toggle" type="checkbox">
+                        <div class="indicator"></div>
+                    </div>
+                </div>
+            </label>
+            <label class="toggler setting" for="vertical-reader-toggle">
+                <div class="toggler-wrapper">
+                    <div class="text">
+                        <div class="name">
+                            Вертикальна читалка
+                        </div>
+                        <p class="description">Читати манґу у вертикальному форматі.</p>
+                    </div>
+                    <div class="switch">
+                        <input id="vertical-reader-toggle" type="checkbox">
                         <div class="indicator"></div>
                     </div>
                 </div>

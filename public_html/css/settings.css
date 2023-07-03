@@ -1,6 +1,35 @@
-.setting+.setting {
-    margin-top: 0.4rem;
+.settings-group {
+    background-color: var(--actv-bg-1);
+    border-radius: 0.6rem;
+    color: var(--text-0);
+    padding: 1rem 2rem;
 }
+
+.settings-group+.settings-group {
+    margin-top: 0.8rem;
+}
+
+
+.setting+.setting {
+    margin-top: 1rem;
+}
+
+.setting .text {
+    display: inline-block;
+}
+
+.setting .text .name {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.setting .text .description {
+    font-size: 0.9em;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Toggler */
 
 .toggler {
     width: 100%;
@@ -9,27 +38,9 @@
 .toggler-wrapper {
     display: flex;
     justify-content: space-between;
-    background-color: var(--actv-bg-1);
-    color: var(--text-0);
-    padding: 1rem 2rem;
-    border-radius: 0.6rem;
     cursor: pointer;
 }
 
-.toggler .text {
-    display: inline-block;
-}
-
-.toggler .text .name {
-    font-size: 1.3em;
-    font-weight: 600;
-}
-
-.toggler .text .description {
-    font-size: 0.9em;
-    font-weight: normal;
-    margin: 0;
-}
 
 .toggler .switch {
     position: relative;
@@ -85,6 +96,34 @@
 
 .toggler .switch input:checked+.indicator:after {
     left: 50%;
+}
+
+/* multiselect */
+
+.multiselect-wrapper .first-line {
+    display: flex;
+}
+
+.multiselect-add-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.multiselect-add {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: auto 0;
+    width: 3rem;
+    height: 3rem;
+}
+
+.multiselect-add :hover,
+.multiselect-add :focus {
+    border: none;
+    outline: none;
 }
 
 /* ---------- */

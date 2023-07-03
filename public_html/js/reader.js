@@ -72,7 +72,7 @@ class Reader {
         this.imageContainer.src = this._buildImage(this.pages[page].src).src
         window.scrollTo({ top: 0 });
 
-        document.location.hash = page + 1
+        document.location.replace('#' + (page + 1))
         localStorage.setItem(document.location.pathname, page);
 
         this._updatePreload(page)

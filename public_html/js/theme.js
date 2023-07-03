@@ -33,6 +33,7 @@ const theme = {
 
         const shouldKeep = [
             'dark-mode-set',
+            'reader-vertical',
         ]
 
         const temp = {}
