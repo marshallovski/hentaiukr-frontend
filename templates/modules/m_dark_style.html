@@ -1,0 +1,15 @@
+{% macro dark_style() -%}
+<script>
+    let isSet = localStorage.getItem('dark-mode-set')
+    if (isSet === null) {
+        isSet = true
+    } else {
+        isSet = JSON.parse(isSet);
+    }
+
+    if (isSet
+    ) {
+        document.body.classList.add('dark-mode')
+    }
+</script>
+{%- endmacro -%}

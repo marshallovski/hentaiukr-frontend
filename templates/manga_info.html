@@ -1,4 +1,5 @@
 {%- from 'modules/m_header' import header -%}
+{%- from 'modules/m_dark_style' import dark_style -%}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -74,6 +75,7 @@
 </head>
 
 <body>
+    {{ dark_style() }}
     {{ header(id='header-elem', search_sections=section) }}
 
     <div class="my-container">
@@ -124,11 +126,6 @@
                         <a id="link-to-reader" href="reader.html">
                             <div class="info-button info-button-read">
                                 <div class="info-button-content">Читати</div>
-                            </div>
-                        </a>
-                        <a id="link-to-reader" href="vertical_reader.html">
-                            <div class="info-button info-button-read">
-                                <div class="info-button-content">Вертикалка (beta)</div>
                             </div>
                         </a>
                         {% if manga.has_alter %}

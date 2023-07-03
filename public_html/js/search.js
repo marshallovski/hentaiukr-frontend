@@ -348,9 +348,9 @@ function parseQuery() {
 
     for (let i = 0; i < fullQuery.length; i++) {
         if (fullQuery[i].startsWith('+')) {
-            whiteTags.add(fullQuery[i].slice(1).replace('_', ' '));
+            whiteTags.add(fullQuery[i].slice(1).replaceAll('_', ' '));
         } else if (fullQuery[i].startsWith('-')) {
-            blackTags.add(fullQuery[i].slice(1).replace('_', ' '));
+            blackTags.add(fullQuery[i].slice(1).replaceAll('_', ' '));
         } else {
             queryTokens.push(fullQuery[i]);
         }

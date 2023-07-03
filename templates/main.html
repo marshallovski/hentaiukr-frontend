@@ -1,5 +1,6 @@
 {%- from 'modules/m_object_cover' import object_cover -%}
 {%- from 'modules/m_header' import header -%}
+{%- from 'modules/m_dark_style' import dark_style -%}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -71,6 +72,7 @@
 </head>
 
 <body>
+    {{ dark_style() }}
     {{ header(id='header-elem') }}
 
     <div class="my-container">

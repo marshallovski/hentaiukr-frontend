@@ -1,4 +1,5 @@
 {%- from 'modules/m_header' import header -%}
+{%- from 'modules/m_dark_style' import dark_style -%}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -79,6 +80,7 @@
 </head>
 
 <body>
+    {{ dark_style() }}
     {{ header(id='header-elem', search_sections=section) }}
     <div class="my-container">
         <div class="main">

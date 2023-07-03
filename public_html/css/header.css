@@ -11,12 +11,11 @@
 
 .header-wrapper.head-hidden .header {
     top: calc(-1 * var(--header-height));
-    transition: all .3s ease;
 }
 
 .navbar {
     display: flex;
-    transition: all .3s ease;
+    transition: top .3s ease;
     padding: 0;
     background-color: var(--actv-bg-0);
     box-shadow: 0 1px 25px rgba(0, 0, 0, .1);

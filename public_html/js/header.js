@@ -78,5 +78,5 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.addEventListener('scroll', () => header.onScroll());
     searchBtn.addEventListener('click', () => header.onSearch());
     randomBtn.addEventListener('click', () => header.randomPage(objects));
-    keyListener.registerKey('Enter', () => header.onSearch());
+    keyListener.registerKey(['Enter', 'NumpadEnter'], () => header.onSearch());
 })
