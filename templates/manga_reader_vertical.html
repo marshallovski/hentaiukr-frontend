@@ -15,7 +15,6 @@
     <meta http-equiv="content-language" content="uk" />
     <meta name="rating" content="adult" />
 
-
     <meta property="og:title" content="{{ manga.name }}">
     <meta property="og:image" content="{{ manga.thumb.get('first') }}">
     <meta property="og:description" content="{{ manga.about }}">
@@ -75,7 +74,7 @@
         <div class="reader">
             {% for page in files %}
             <div class="page">
-                <img src="{{page.src}}" />
+                <img class="image" src="{{page.src}}" loading="lazy" height="2000px" />
             </div>
             {% endfor %}
         </div>

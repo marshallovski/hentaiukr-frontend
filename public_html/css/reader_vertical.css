@@ -11,8 +11,10 @@
     margin-top: 1rem;
 }
 
-.page img {
+.page .image {
     width: 100%;
+    object-fit: cover;
+    object-position: top;
 }
 
 @media (min-width:1000px) {
