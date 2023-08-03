@@ -121,6 +121,20 @@
                     <div id="public"> <b>Опубліковано :</b> {{ video.add_date }} </div>
                     <div id="pages-num"> <b>Кількість епізодів :</b> {{ video.info.episodes| length }} </div>
                     <div id="about"> {{ video.about }} </div>
+                    {% if video.translation_type -%}
+                    <div id="translation-type"> Тип перекладу:
+                        <div class="tag tag-white">
+                            <a href="{{ video.translation_type.url }}">
+                                <div class="name">
+                                    {{ video.translation_type.name }}
+                                </div>
+                                <div class="count">
+                                    {{ video.translation_type.count }}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {%- endif %}
 
                     <br />
                     <div class="info-buttons">

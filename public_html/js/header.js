@@ -23,7 +23,7 @@ class Header {
             currDirection = -1;
         }
 
-        if (Math.abs(this.prevScroll - currScroll) < this.offset) {
+        if (Math.abs(this.prevScroll - currScroll) < this.offset * 2) {
             return
         }
 

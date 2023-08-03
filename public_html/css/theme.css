@@ -1,6 +1,5 @@
 /* Vars */
 
-body,
 body.light {
     --bg-color: #eee;
     --actv-bg-0: #fff;
@@ -35,6 +34,7 @@ body.light {
     --outl-0: #fff;
 }
 
+body,
 body.dark-mode {
     --bg-color: #050505;
     --actv-bg-0: #111;
