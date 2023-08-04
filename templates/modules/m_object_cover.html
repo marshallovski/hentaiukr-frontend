@@ -1,5 +1,5 @@
 {% macro object_cover(id, object, src="/assets/main/placeholder.webp") -%}
-<div id="{{id}}" class="object-cover">
+<div id="{{id}}" class="object-cover" data-tags="[{{ object.tags|map(attribute='tag_id')|join(',') }}]">
     <a href="{{ object.url }}">
         <div class="image">
             <img id="img-{{ id }}" src="{{ src }}" , alt="{{ object.name }}" />

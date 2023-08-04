@@ -8,6 +8,14 @@
     overflow-y: clip;
 }
 
+.object-cover.blacklisted {
+    display: var(--blacklisted-content-display) !important;
+}
+
+.object-cover.blacklisted img {
+    filter: var(--blacklisted-content-thumb-filter);
+}
+
 .image img {
     max-width: 100%;
     margin: auto;
@@ -89,4 +97,9 @@
     .image img {
         min-height: 150px;
     }
+}
+
+:root {
+    --blacklisted-content-display: inline;
+    --blacklisted-content-thumb-filter: none;
 }

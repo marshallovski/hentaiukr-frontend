@@ -120,7 +120,6 @@
                     <div id="year"> <b>Рік виходу :</b> {{ video.publication_year }} </div>
                     <div id="public"> <b>Опубліковано :</b> {{ video.add_date }} </div>
                     <div id="pages-num"> <b>Кількість епізодів :</b> {{ video.info.episodes| length }} </div>
-                    <div id="about"> {{ video.about }} </div>
                     {% if video.translation_type -%}
                     <div id="translation-type"> Тип перекладу:
                         <div class="tag tag-white">
@@ -135,6 +134,7 @@
                         </div>
                     </div>
                     {%- endif %}
+                    <div id="about"> {{ video.about }} </div>
 
                     <br />
                     <div class="info-buttons">
