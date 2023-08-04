@@ -161,6 +161,16 @@ const helpers = {
             for (const tagID of JSON.parse(cover.dataset.tags)) {
                 if (blacklistedTags.has(tagID)) {
                     cover.classList.add('blacklisted');
+
+                    const link = cover.getElementsByTagName('a')[0];
+                    const href = link.href;
+                    link.href = null;
+                    link.addEventListener('click', function (e) {
+                        link.href = href;
+                        cover.classList.remove('blacklisted');
+                        e.preventDefault()
+                    }, { once: true });
+
                     break;
                 }
             }
