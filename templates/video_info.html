@@ -121,7 +121,7 @@
                     <div id="public"> <b>Опубліковано :</b> {{ video.add_date }} </div>
                     <div id="pages-num"> <b>Кількість епізодів :</b> {{ video.info.episodes| length }} </div>
                     {% if video.translation_type -%}
-                    <div id="translation-type"> Тип перекладу:
+                    <div id="translation-type"> <b>Тип перекладу :</b>
                         <div class="tag tag-white">
                             <a href="{{ video.translation_type.url }}">
                                 <div class="name">
