@@ -44,7 +44,7 @@
 
 .toggler .switch {
     position: relative;
-    margin: 0.5rem;
+    margin: 0.5rem 0;
     display: flex;
     align-items: center;
 }
@@ -100,24 +100,33 @@
 
 /* multiselect */
 
-.multiselect-wrapper .first-line {
+.multiselect-wrapper .description {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .multiselect-add-wrapper {
     height: 100%;
-    display: flex;
     align-items: center;
+    position: relative;
 }
 
 .multiselect-add {
     appearance: none;
     background-color: transparent;
+    color: transparent;
     border: none;
-    padding: 0 1em 0 0;
     margin: auto 0;
-    width: 3rem;
-    height: 3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    position: absolute;
+    z-index: 999;
+}
+
+.multiselect-add option {
+    color: var(--text-0);
+    background-color: var(--main-2);
 }
 
 .multiselect-add :hover,
@@ -125,6 +134,51 @@
     border: none;
     outline: none;
 }
+
+.multiselect-add-wrapper .icon {
+    max-width: 2.3rem;
+    height: 100%;
+}
+
+.selected {
+    margin: 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.selected .item {
+    display: inline;
+    font-size: 1rem;
+    border: solid 0.5px var(--neut-0);
+    border-radius: 0.3rem;
+    background-color: var(--actv-bg-4);
+}
+
+.selected .item div {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+}
+
+.selected .item .name {
+    padding: 0.4em 0.7rem 0.4em 1em;
+    font-weight: 600;
+}
+
+.selected .item .delete {
+    height: 100%;
+    padding: 0.4em 0.6em;
+    background-color: var(--actv-bg-2);
+    border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.selected .item .icon {
+    max-width: 1.2rem;
+    height: 100%;
+    object-fit: contain;
+}
+
 
 /* ---------- */
 
@@ -148,6 +202,8 @@
 
 .faq-container h3 {
     margin-top: 1rem;
+    margin-left: 1rem;
+    font-size: 1.4rem;
 }
 
 /* Vars */

@@ -5,7 +5,7 @@ class HTMLGenerator {
         let html = ''
         for (let i = 0; i < objects.length; i++) {
             html += `
-            <div id="${i}" class="pager-item-select object-cover hidden">
+            <div id="${i}" class="pager-item-select object-cover hidden" data-tags="[${objects[i].tags.map((e) => e.id).join(',')}]">
                 <a href="${objects[i].url}">
                     <div class="image">
                         <img id="img-${i}" src="/assets/main/placeholder.webp" data-src="${objects[i].thumb}"/>
@@ -37,7 +37,7 @@ class Searcher {
         for (const key in objects) {
             const category = objects[key];
             for (const i in category) {
-                category[i].tags = new Set(category[i].tags.map(tag => tag.toLowerCase()));
+                category[i].tags = category[i].tags.map(tag => { return { ...tag, name: tag.name.toLowerCase() } });
                 category[i].add_date = Date.parse(category[i].add_date);
             }
 
@@ -113,14 +113,14 @@ class Searcher {
     _filterByWhiteTag(objects, tags) {
         let idx = 0;
         for (const i in objects) {
-            let found = true;
+            let hasAll = true;
             for (const whiteTag of tags) {
-                if (!objects[i].tags.has(whiteTag)) {
-                    found = false;
+                if (!objects[i].tags.some((e) => e.name === whiteTag)) {
+                    hasAll = false;
                     break;
                 }
             }
-            if (!found) {
+            if (!hasAll) {
                 continue;
             }
 
@@ -134,14 +134,7 @@ class Searcher {
     _filterByBlackTag(objects, tags) {
         let idx = 0;
         for (const i in objects) {
-            let skip = false;
-            for (const tag of objects[i].tags) {
-                if (tags.has(tag)) {
-                    skip = true;
-                    break;
-                }
-            }
-            if (skip) {
+            if (objects[i].tags.some((e) => tags.has(e.name))) {
                 continue;
             }
 
@@ -394,6 +387,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     const htmlGenerator = new HTMLGenerator();
     resultsArea.insertAdjacentHTML('beforeend', htmlGenerator.thumbnails(filtered));
     pageSelector.insertAdjacentHTML('beforeend', htmlGenerator.selector(pages));
+
+    helpers.markBlacklisted();
+    if (localStorage.getItem('hide-blacklisted-tags') === 'true' && document.getElementsByClassName('blacklisted').length === filtered.length) {
+        const notFound = document.getElementById('not-found');
+        const paging = document.getElementById('paging');
+        notFound.classList.remove('hidden');
+        paging.classList.add('hidden');
+
+        return;
+    }
 
     // apply paging to results
     const pagingOver = [].slice.call(document.getElementsByClassName('pager-item-select'));

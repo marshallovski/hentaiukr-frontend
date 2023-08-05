@@ -145,6 +145,47 @@ const helpers = {
 
         return data;
     },
+
+    markBlacklisted: function () {
+        const covers = document.getElementsByClassName('object-cover');
+        const blacklistedTags = new Set(JSON.parse(localStorage.getItem('blacklisted-tags')));
+        const hideBlacklistedTags = localStorage.getItem('hide-blacklisted-tags') === 'true';
+
+        if (hideBlacklistedTags) {
+            this.styles.set('--blacklisted-content-display', 'none');
+        } else {
+            this.styles.set('--blacklisted-content-thumb-filter', 'blur(5px)');
+        }
+
+        for (const cover of covers) {
+            for (const tagID of JSON.parse(cover.dataset.tags)) {
+                if (blacklistedTags.has(tagID)) {
+                    cover.classList.add('blacklisted');
+
+                    const link = cover.getElementsByTagName('a')[0];
+                    const href = link.href;
+                    link.href = null;
+                    link.addEventListener('click', function (e) {
+                        link.href = href;
+                        cover.classList.remove('blacklisted');
+                        e.preventDefault()
+                    }, { once: true });
+
+                    break;
+                }
+            }
+        }
+    },
+
+    styles: {
+        set: function (key, value) {
+            document.documentElement.style.setProperty(key, value);
+        },
+        get: function (key) {
+            const rs = getComputedStyle(document.documentElement);
+            return rs.getPropertyValue(key);
+        }
+    },
 }
 
 function newKeyListener(elem) {

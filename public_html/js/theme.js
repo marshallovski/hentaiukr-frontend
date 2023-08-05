@@ -34,6 +34,8 @@ const theme = {
         const shouldKeep = [
             'dark-mode-set',
             'reader-vertical',
+            'blacklisted-tags',
+            'hide-blacklisted-tags',
         ]
 
         const temp = {}

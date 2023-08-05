@@ -109,3 +109,8 @@
 body.dark-mode .object-group-row .row-toggler {
     filter: invert(1);
 }
+
+:root {
+    --blacklisted-content-display: inline-block;
+    --blacklisted-content-thumb-filter: none;
+}
