@@ -40,13 +40,14 @@ class Header {
 
     randomPage(objects) {
         const searchSection = this._searchSection();
+        const blacklistedTags = new Set(JSON.parse(localStorage.getItem('blacklisted-tags') || '[]'))
 
         let sections = searchSection.split(',');
         if (searchSection === 'all') {
             sections = ['manga', 'video', 'korean'];
         }
 
-        const category = objects[sections[helpers.randInt(sections.length)]]
+        const category = objects[sections[helpers.randInt(sections.length)]].filter(obj => !obj.tags.some(tag => blacklistedTags.has(tag.id)))
         const object = category[helpers.randInt(category.length)];
 
         window.location.href = object.url;
