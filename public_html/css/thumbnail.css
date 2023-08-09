@@ -9,7 +9,7 @@
 }
 
 .object-cover.blacklisted {
-    display: var(--blacklisted-content-display) !important;
+    display: var(--blacklisted-content-display);
 }
 
 .object-cover.blacklisted img {
